@@ -137,7 +137,7 @@ export default {
             }).catch((err)=>{
                 console.log(err);
             });
-        },
+        }, 
     },
     props: ['editProducts', 'api', 'create', 'status'],
 };

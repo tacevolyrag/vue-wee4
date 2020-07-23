@@ -25,7 +25,7 @@ export default {
         };
     },
     props:['editProducts', 'api'],
-    methods: {
+    methods: { 
         confirmDelete(){
             const url = `${this.api.path}api/${this.api.uuid}/admin/ec/product/${this.editProducts.id}`;
             axios.delete(url)

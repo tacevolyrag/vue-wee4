@@ -29,7 +29,7 @@ new Vue({
             const url = `${this.api.path}api/${this.api.uuid}/admin/ec/product`;
             this.editProducts = { 
                 imageUrl: [] 
-            };
+            }; 
             this.create = true;
             $('#createdItem').modal('show');
         },
