@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LOGIN</title>
+    <link rel='stylesheet'
+        href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css' />
+    <style>
+        html,
+        body {
+            height: 100%;
+            text-align: center;
+            font-family: 微軟正黑體;
+        }
+
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .form-signin {
+            width: 100%;
+            max-width: 300px;
+            padding: 15px;
+            margin: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div class="container">
+            <form class="form-signin" @submit.prevent="signIn">
+                <h1 class="h3 mb-3 font-weight-normal">請輸入帳號密碼</h1>
+                <div class="form-group">
+                    <label for="inputEmail">Email address</label>
+                    <input type="email" class="form-control" id="inputEmail" v-model="user.email" placeholder="Enter email">
+                </div>
+                <div class="form-group">
+                    <label for="inputPassword">Password</label>
+                    <input type="password" class="form-control" id="inputPassword" v-model="user.password" placeholder="Password">
+                </div>
+                <button type="submit" class="btn btn-lg btn-block btn-primary">登入</button>
+            </form>
+        </div>
+    </div>
+
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
+        integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+        crossorigin="anonymous"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.11/vue.js'></script>
+    <script>
+        new Vue({
+            el: '#app',
+            data:{
+                user:{
+                    email: '',
+                    password: '',
+                },
+            },
+            methods:{
+                signIn(){
+                    let apiPath = 'https://course-ec-api.hexschool.io/api/';
+                    const api = `${apiPath}auth/login`;
+                    axios.post(api, this.user)
+                    .then((res) => {
+                        const token = res.data.token;
+                        const expired = res.data.expired;
+                        document.cookie = `myToken=${token}; expires=${new Date (expired * 1000)}; path=/`;
+                        window.location = "Product.html"
+                    }).catch((err) => {
+                        console.log(err);
+                    });
+                }
+            },
+        })
+    </script>
+</body>
+
+</html>
