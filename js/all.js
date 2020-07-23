@@ -30,17 +30,14 @@ new Vue({
             this.editProducts = { 
                 imageUrl: [] 
             };
-            console.log(this);
             this.create = true;
             $('#createdItem').modal('show');
         },
         editProduct(item) {
             // api/{uuid}/admin/ec/product/{id}
             const url = `${this.api.path}api/${this.api.uuid}/admin/ec/product/${item.id}`;
-            console.log(`${item.id}`);
             axios.get(url)
                 .then((res) => {
-                    console.log(this);
                     this.editProducts = res.data.data;
                     $('#createdItem').modal('show');
                 })
@@ -50,7 +47,6 @@ new Vue({
             $('#removeItem').modal('show');
         },
         getProducts(pageNum = 1) {
-            // console.log(pageNum);
             const url = `${this.api.path}api/${this.api.uuid}/admin/ec/products?page=${pageNum}`;
             axios.get(url)
                 .then((res) => {

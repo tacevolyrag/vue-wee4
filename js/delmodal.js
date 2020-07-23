@@ -30,7 +30,6 @@ export default {
             const url = `${this.api.path}api/${this.api.uuid}/admin/ec/product/${this.editProducts.id}`;
             axios.delete(url)
                 .then((res)=>{
-                    console.log(res);
                     $('#removeItem').modal('hide');
                     this.$emit('edited')
                 })

@@ -99,7 +99,6 @@ export default {
         updateProduct(){
             const editUrl = `${this.api.path}api/${this.api.uuid}/admin/ec/product/${this.editProducts.id}`;
             const createUrl = `${this.api.path}api/${this.api.uuid}/admin/ec/product`;
-            console.log(this)
             if(!this.create){
                 axios.patch(editUrl, this.editProducts)
                     .then((res)=>{
@@ -120,7 +119,7 @@ export default {
         uploadFile(){
             // POST api/{uuid}/admin/storage
             const uploadedFile = document.querySelector('#customFile').files[0];
-            console.dir(uploadedFile);
+
             const formData = new FormData();
             formData.append('file', uploadedFile)
             this.status.fileUploading = true;
@@ -130,7 +129,6 @@ export default {
                     'Content-Type' : 'multipart/form-data',
                 }
             }).then((res)=>{
-                console.log(res);
                 this.status.fileUploading = false;
                 this.filePath = res.data.data.path;
                 if (res.status === 200) {
