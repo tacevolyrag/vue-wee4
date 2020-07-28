@@ -21,12 +21,10 @@ new Vue({
         status:{
             fileUploading: false,
         },   
-        token: 'aXCJibK9z3s8tZrAVZR4jexDZrrMqFBnag46qZnzY6BHCcvVPIDELVJKxcux',
+        token: '',
     },
     methods: {
-        createdProduct(create) {
-            // api/{uuid}/admin/ec/product
-            const url = `${this.api.path}api/${this.api.uuid}/admin/ec/product`;
+        createdProduct() {
             this.editProducts = { 
                 imageUrl: [] 
             }; 
@@ -36,6 +34,8 @@ new Vue({
         editProduct(item) {
             // api/{uuid}/admin/ec/product/{id}
             const url = `${this.api.path}api/${this.api.uuid}/admin/ec/product/${item.id}`;
+            this.create = false;
+            this.status.fileUploading = false;
             axios.get(url)
                 .then((res) => {
                     this.editProducts = res.data.data;

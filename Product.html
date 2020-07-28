@@ -9,58 +9,63 @@
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="css/all.css">
 </head>
-<div id="app" class="container mt-4 ">
-    <div class="text-right">
-        <button type="button" class="btn btn-dark " @click="createdProduct('create')" data-toggle="modal">新增產品</button>
-    </div>
-    <table class="table mt-4">
-        <thead>
-            <tr>
-                <th class="" width="150">分類</th>
-                <th class="">產品名稱</th>
-                <th class="text-center" width="120">原價</th>
-                <th class="text-center" width="120">售價</th>
-                <th class="text-center" width="120">是否上架</th>
-                <th width="150" class="pr-4">編輯</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr v-for="(item) in products" :key="item.id">
-                <td class="pt-3">{{ item.content }}</th>
-                <td class="pt-3">{{ item.title }}</td>
-                <td class="pt-3 text-right">{{ item.origin_price }}</td>
-                <td class="pt-3 text-right">{{ item.price }}</td>
-                <td class="pt-3 text-center">
-                    <span v-if="item.enabled" class="text-success">已上架</span>
-                    <span v-else class="text-danger">尚未上架</span>
-                </td>
-                <td>
-                    <div class="btn-group"><button type="button" class="btn btn-outline-primary"
-                            @click="editProduct(item)">編輯</button>
-                        <button type="button" class="btn btn-outline-danger" @click="removeProduct(item)">刪除</button>
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-
-    <pagination :pages="pagination" @render="getProducts"></pagination>
-
-
-    <!-- Modal -->
-    <div class="modal fade" id="createdItem" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
-        aria-hidden="true">
-        <modal :api="api" :create="this.create" :edit-Products="editProducts" :status="status" @edited="getProducts"></modal>
-    </div>
-
-    <!-- del modal -->
-    <div class="modal fade" id="removeItem" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
-        aria-hidden="true">
-        <delmodal :api="api" :edit-Products="editProducts" @edited="getProducts"></delmodal>
-    </div>
-</div>
 
 <body>
+    <div id="app" class="container mt-4 ">
+        <div class="text-right">
+            <button type="button" class="btn btn-dark " @click="createdProduct"
+                data-toggle="modal">新增產品</button>
+        </div>
+        <table class="table mt-4">
+            <thead>
+                <tr>
+                    <th class="" width="150">分類</th>
+                    <th class="">產品名稱</th>
+                    <th class="text-center" width="120">原價</th>
+                    <th class="text-center" width="120">售價</th>
+                    <th class="text-center" width="120">是否上架</th>
+                    <th width="150" class="pr-4">編輯</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="(item) in products" :key="item.id">
+                    <td class="pt-3">{{ item.content }}</td>
+                    <td class="pt-3">{{ item.title }}</td>
+                    <td class="pt-3 text-right">{{ item.origin_price }}</td>
+                    <td class="pt-3 text-right">{{ item.price }}</td>
+                    <td class="pt-3 text-center">
+                        <span v-if="item.enabled" class="text-success">已上架</span>
+                        <span v-else class="text-danger">尚未上架</span>
+                    </td>
+                    <td>
+                        <div class="btn-group"><button type="button" class="btn btn-outline-primary"
+                                @click="editProduct(item)">編輯</button>
+                            <button type="button" class="btn btn-outline-danger"
+                                @click="removeProduct(item)">刪除</button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <pagination :pages="pagination" @render="getProducts"></pagination>
+
+
+        <!-- Modal -->
+        <div class="modal fade" id="createdItem" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+            aria-hidden="true">
+            <modal :api="api" :create="this.create" :edit-Products="editProducts" :status="status"
+                @edited="getProducts"></modal>
+        </div>
+
+        <!-- del modal -->
+        <div class="modal fade" id="removeItem" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+            aria-hidden="true">
+            <delmodal :api="api" :edit-Products="editProducts" @edited="getProducts"></delmodal>
+        </div>
+    </div>
+
+
 
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
         integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
