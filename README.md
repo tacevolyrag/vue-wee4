@@ -2,4 +2,4 @@
 
 登入頁面
 
-https://github.com/tacevolyrag/vue-week4/login.html
+https://tacevolyrag.github.io/vue-week4/login.html
