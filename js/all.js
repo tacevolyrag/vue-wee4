@@ -28,6 +28,7 @@ new Vue({
             this.editProducts = { 
                 imageUrl: [] 
             }; 
+            this.filePath = "";
             this.create = true;
             $('#createdItem').modal('show');
         },
@@ -68,7 +69,6 @@ new Vue({
         this.token = document.cookie.replace(/(?:(?:^|.*;\s*)myToken\s*\=\s*([^;]*).*$)|^.*$/, "$1");
         axios.defaults.headers.common['Authorization'] = `Bearer ${this.token}`;
         this.getProducts();
-
     },
 
 });

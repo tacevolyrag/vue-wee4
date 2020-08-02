@@ -14,14 +14,14 @@ export default {
                             <div class="form-group">
                                 <label for="image">圖片網址</label>
                                 <input id="image" placeholder="輸入圖片來源網址" class="form-control"
-                                    v-model="editProducts.imageUrl">
-                                <img :src="editProducts.imageUrl" alt="" class="img-fluid mt-3">
+                                    v-model="editProducts.imageUrl[0]">
+                                <img :src="editProducts.imageUrl[0]" alt="" class="img-fluid mt-3">
                             </div>
                             <div class="form-group">
-                                <lable for="customFile">
-                                </lable>
+                                <label for="customFile">
+                                </label>
                                 <input type="file" id="customFile" class="form-group text-fluid" @change="uploadFile">
-                                <img :src="filePath" class="img-fluid" alt="">
+                                <img :src="filePath[0]" class="img-fluid" alt="">
 
                             </div>
                         </div>
@@ -88,15 +88,16 @@ export default {
                     </div>
                 </div>
             </div>
-        </div>
-    `,
+        </div>`,
     data() {
         return {
-            filePath: '',
+            filePath: {
+                imageUrl: [],
+            },
         };
     },
     methods: {
-        updateProduct(){
+        updateProduct() {
             const editUrl = `${this.api.path}api/${this.api.uuid}/admin/ec/product/${this.editProducts.id}`;
             const createUrl = `${this.api.path}api/${this.api.uuid}/admin/ec/product`;
             // 如果是 true 就新增一個產品，反之則編輯產品
@@ -104,6 +105,7 @@ export default {
                 axios.post(createUrl, this.editProducts)
                 .then(()=>{
                     this.$emit('edited');
+                    this.filePath = { 123: 123};
                     $('#createdItem').modal('hide');
                 }).catch((err)=>{
                     console.log(err);
@@ -117,15 +119,14 @@ export default {
                 })
             };
         },
-        uploadFile(){
+        uploadFile() {
             // POST api/{uuid}/admin/storage
             const uploadedFile = document.querySelector('#customFile').files[0];
-
             const formData = new FormData();
             formData.append('file', uploadedFile)
             const url = `${this.api.path}api/${this.api.uuid}/admin/storage`;
             axios.post(url, formData,{
-                headers:{
+                headers: {
                     'Content-Type' : 'multipart/form-data',
                 }
             }).then((res)=>{
@@ -133,8 +134,10 @@ export default {
                 this.filePath = res.data.data.path;
                 if (res.status === 200) {
                     this.editProducts.imageUrl.push(this.filePath);
-                };
-                
+                    if(this.editProducts.imageUrl[0]){
+                        this.editProducts.imageUrl[0] = this.filePath;
+                    }
+                };        
             }).catch((err)=>{
                 console.log(err);
             });
