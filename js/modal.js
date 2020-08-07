@@ -105,7 +105,7 @@ export default {
                 axios.post(createUrl, this.editProducts)
                 .then(()=>{
                     this.$emit('edited');
-                    this.filePath = { 123: 123};
+                    this.filePath = {};
                     $('#createdItem').modal('hide');
                 }).catch((err)=>{
                     console.log(err);
